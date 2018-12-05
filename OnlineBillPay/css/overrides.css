@@ -1,0 +1,13 @@
+﻿.wellcome_area.regular_hero {
+    height: 250px;
+    margin-top: 110px; /* Offset for fixed header */
+}
+.wellcome_area.regular_hero .wellcome-heading {
+        margin-bottom: 0px;
+}
+.content, .white-bg {
+    background-color: #fff;
+}
+#nested.container-fluid > .row {
+    padding-top: 4em;
+}

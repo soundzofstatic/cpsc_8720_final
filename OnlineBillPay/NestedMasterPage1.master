@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NestedMasterPage1.master.cs" Inherits="OnlineBillPay.NestedMasterPage1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <!-- Hero -->
+    <section class="wellcome_area regular_hero clearfix mb-6" id="account-register">
+        <div class="container h-100 mb-6">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-md">
+                    <div class="wellcome-heading">
+                        <h2><%: Page.Title %>.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main -->
+    <main id="nested" class="container-fluid">
+        <div class="row">
+            <!--- Side Bar -->
+            <div class="col-md-3 p-5">
+                <asp:Repeater ID="SidebarNav" runat="server">
+                    <HeaderTemplate>
+                        <div class="list-group">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <a href="<%# Eval("LinkLocation") %>" title="<%# Eval("LinkTitle") %>" class="list-group-item list-group-item-action <%# (bool)Eval("LinkActive") == true ? "active" : "" %>"><%# Eval("LinkText") %></a>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </div>
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+            <!--- Page Content -->
+            <asp:ContentPlaceHolder ID="NestedContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </main>
+</asp:Content>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BillPayModelStoreContainer" CdmEntityContainer="BillPayEntities">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="BillPayModel.Address">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="address_id" ColumnName="address_id" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="street_address" ColumnName="street_address" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="country" ColumnName="country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerPayees">
+      <EntityTypeMapping TypeName="BillPayModel.CustomerPayee">
+        <MappingFragment StoreEntitySet="CustomerPayees">
+          <ScalarProperty Name="customer_payee_id" ColumnName="customer_payee_id" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="payee_id" ColumnName="payee_id" />
+          <ScalarProperty Name="nickname" ColumnName="nickname" />
+          <ScalarProperty Name="customer_postal_code" ColumnName="customer_postal_code" />
+          <ScalarProperty Name="payee_account_number" ColumnName="payee_account_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="BillPayModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="account_number" ColumnName="account_number" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="display_name" ColumnName="display_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FundingSources">
+      <EntityTypeMapping TypeName="BillPayModel.FundingSource">
+        <MappingFragment StoreEntitySet="FundingSources">
+          <ScalarProperty Name="funding_source_id" ColumnName="funding_source_id" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="account_number" ColumnName="account_number" />
+          <ScalarProperty Name="nickname" ColumnName="nickname" />
+          <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payees">
+      <EntityTypeMapping TypeName="BillPayModel.Payee">
+        <MappingFragment StoreEntitySet="Payees">
+          <ScalarProperty Name="payee_id" ColumnName="payee_id" />
+          <ScalarProperty Name="default_name" ColumnName="default_name" />
+          <ScalarProperty Name="default_street_address" ColumnName="default_street_address" />
+          <ScalarProperty Name="default_street_address_two" ColumnName="default_street_address_two" />
+          <ScalarProperty Name="default_city" ColumnName="default_city" />
+          <ScalarProperty Name="default_region" ColumnName="default_region" />
+          <ScalarProperty Name="default_country" ColumnName="default_country" />
+          <ScalarProperty Name="default_postal_code" ColumnName="default_postal_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="BillPayModel.Payment">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="customer_payee_id" ColumnName="customer_payee_id" />
+          <ScalarProperty Name="funding_source_id" ColumnName="funding_source_id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="currency" ColumnName="currency" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneNumbers">
+      <EntityTypeMapping TypeName="BillPayModel.PhoneNumber">
+        <MappingFragment StoreEntitySet="PhoneNumbers">
+          <ScalarProperty Name="phone_number_id" ColumnName="phone_number_id" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="extension" ColumnName="extension" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

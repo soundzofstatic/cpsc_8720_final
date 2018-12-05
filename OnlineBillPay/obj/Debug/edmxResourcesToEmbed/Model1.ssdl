@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BillPayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Addresses">
+    <Key>
+      <PropertyRef Name="address_id" />
+    </Key>
+    <Property Name="address_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="customer_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="street_address" Type="text" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="64" />
+    <Property Name="number" Type="varchar" MaxLength="64" />
+    <Property Name="city" Type="text" />
+    <Property Name="postal_code" Type="text" Nullable="false" />
+    <Property Name="region" Type="text" Nullable="false" />
+    <Property Name="country" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerPayees">
+    <Key>
+      <PropertyRef Name="customer_payee_id" />
+    </Key>
+    <Property Name="customer_payee_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="customer_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="payee_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="nickname" Type="text" Nullable="false" />
+    <Property Name="customer_postal_code" Type="text" />
+    <Property Name="payee_account_number" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="account_number" />
+    </Key>
+    <Property Name="account_number" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="email" Type="text" Nullable="false" />
+    <Property Name="first_name" Type="text" Nullable="false" />
+    <Property Name="last_name" Type="text" Nullable="false" />
+    <Property Name="display_name" Type="text" />
+  </EntityType>
+  <EntityType Name="FundingSources">
+    <Key>
+      <PropertyRef Name="funding_source_id" />
+    </Key>
+    <Property Name="funding_source_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="customer_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="account_number" Type="text" Nullable="false" />
+    <Property Name="nickname" Type="text" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="64" />
+  </EntityType>
+  <EntityType Name="Payees">
+    <Key>
+      <PropertyRef Name="payee_id" />
+    </Key>
+    <Property Name="payee_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="default_name" Type="text" Nullable="false" />
+    <Property Name="default_street_address" Type="text" Nullable="false" />
+    <Property Name="default_street_address_two" Type="text" />
+    <Property Name="default_city" Type="text" Nullable="false" />
+    <Property Name="default_region" Type="text" Nullable="false" />
+    <Property Name="default_country" Type="text" Nullable="false" />
+    <Property Name="default_postal_code" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="customer_payee_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="funding_source_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="amount" Type="float" Nullable="false" />
+    <Property Name="date_created" Type="datetime" Nullable="false" />
+    <Property Name="currency" Type="varchar" MaxLength="8" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PhoneNumbers">
+    <Key>
+      <PropertyRef Name="phone_number_id" />
+    </Key>
+    <Property Name="phone_number_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="customer_id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="18" Nullable="false" />
+    <Property Name="number" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="extension" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Addresses_ToTable">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="account_number" />
+      </Principal>
+      <Dependent Role="Addresses">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerPayees_ToTable">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="CustomerPayees" Type="Self.CustomerPayees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="account_number" />
+      </Principal>
+      <Dependent Role="CustomerPayees">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerPayees_ToTable_1">
+    <End Role="Payees" Type="Self.Payees" Multiplicity="1" />
+    <End Role="CustomerPayees" Type="Self.CustomerPayees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payees">
+        <PropertyRef Name="payee_id" />
+      </Principal>
+      <Dependent Role="CustomerPayees">
+        <PropertyRef Name="payee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FundingSources_ToTable">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="FundingSources" Type="Self.FundingSources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="account_number" />
+      </Principal>
+      <Dependent Role="FundingSources">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_ToTable">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="account_number" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="customer_payee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_ToTable_1">
+    <End Role="FundingSources" Type="Self.FundingSources" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FundingSources">
+        <PropertyRef Name="funding_source_id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="funding_source_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhoneNumbers_ToTable">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="PhoneNumbers" Type="Self.PhoneNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="account_number" />
+      </Principal>
+      <Dependent Role="PhoneNumbers">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BillPayModelStoreContainer">
+    <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerPayees" EntityType="Self.CustomerPayees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FundingSources" EntityType="Self.FundingSources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payees" EntityType="Self.Payees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumbers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Addresses_ToTable" Association="Self.FK_Addresses_ToTable">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Addresses" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerPayees_ToTable" Association="Self.FK_CustomerPayees_ToTable">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="CustomerPayees" EntitySet="CustomerPayees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerPayees_ToTable_1" Association="Self.FK_CustomerPayees_ToTable_1">
+      <End Role="Payees" EntitySet="Payees" />
+      <End Role="CustomerPayees" EntitySet="CustomerPayees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FundingSources_ToTable" Association="Self.FK_FundingSources_ToTable">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="FundingSources" EntitySet="FundingSources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_ToTable" Association="Self.FK_Payments_ToTable">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_ToTable_1" Association="Self.FK_Payments_ToTable_1">
+      <End Role="FundingSources" EntitySet="FundingSources" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhoneNumbers_ToTable" Association="Self.FK_PhoneNumbers_ToTable">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="PhoneNumbers" EntitySet="PhoneNumbers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
