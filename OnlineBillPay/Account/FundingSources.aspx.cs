@@ -21,22 +21,25 @@ namespace OnlineBillPay.Account
             Debug.WriteLine(User.Identity.GetUserId());
 
             // Check if UserID is returned, thus authenticated session is still set
-            /*if (string.IsNullOrEmpty(User.Identity.GetUserId()))
+            if (string.IsNullOrEmpty(User.Identity.GetUserId()))
             {
 
                 Response.Redirect("/Account/Login.aspx"); // This sends a 302, should send a 301
 
-            }*/
+            }
 
             // Set/Overload the UserId for the Select query that will render FundingSources for User
             ObjectDataSource1.SelectParameters["UserId"].DefaultValue = User.Identity.GetUserId();
 
-            // Generate List items for State DDL
-            foreach (var type in new FundingSourceTypeData().GetFundingTypes().ToList())
+            if (!IsPostBack)
             {
+                // Generate List items for State DDL
+                foreach (var type in new FundingSourceTypeData().GetFundingTypes().ToList())
+                {
 
-                ddlType.Items.Add(new ListItem {  Text= type.Type.ToString(), Value= type.Type.ToString() });
+                    ddlType.Items.Add(new ListItem { Text = type.Type.ToString(), Value = type.Type.ToString() });
 
+                }
             }
 
         }

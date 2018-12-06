@@ -22,19 +22,22 @@ namespace OnlineBillPay.Account
             // Set/Overload the UserId for the Select query that will render Addresses for User
             ObjectDataSource1.SelectParameters["UserId"].DefaultValue = User.Identity.GetUserId();
 
-            // Generate List items for State DDL
-            foreach (var state in new StateData().GetStates().ToList())
+            if (!IsPostBack)
             {
+                // Generate List items for State DDL
+                foreach (var state in new StateData().GetStates().ToList())
+                {
 
-                ddlRegion.Items.Add(new ListItem {  Text=state.Name.ToString(), Value=state.Code.ToString() });
+                    ddlRegion.Items.Add(new ListItem { Text = state.Name.ToString(), Value = state.Code.ToString() });
 
-            }
+                }
 
-            foreach (var addressType in new AddressTypeData().GetAddressTypes().ToList())
-            {
+                foreach (var addressType in new AddressTypeData().GetAddressTypes().ToList())
+                {
 
-                ddlAddressType.Items.Add(new ListItem { Text = addressType.Type.ToString(), Value = addressType.Type.ToString() });
+                    ddlAddressType.Items.Add(new ListItem { Text = addressType.Type.ToString(), Value = addressType.Type.ToString() });
 
+                }
             }
 
         }

@@ -31,12 +31,15 @@ namespace OnlineBillPay.Account
             // Set/Overload the UserId for the Select query that will render PhoneNumbers for User
             ObjectDataSource1.SelectParameters["UserId"].DefaultValue = User.Identity.GetUserId();
 
-            // Generate List items for State DDL
-            foreach (var type in new PhoneTypeData().GetPhoneTypes().ToList())
+            if (!IsPostBack)
             {
+                // Generate List items for State DDL
+                foreach (var type in new PhoneTypeData().GetPhoneTypes().ToList())
+                {
 
-                ddlType.Items.Add(new ListItem {  Text= type.Type.ToString(), Value= type.Type.ToString() });
+                    ddlType.Items.Add(new ListItem { Text = type.Type.ToString(), Value = type.Type.ToString() });
 
+                }
             }
 
         }
