@@ -40,8 +40,6 @@ namespace OnlineBillPay.Account
                 // Grab the UserPayeeId selected and query the DB again for it
                 String selectedUserPayeeId = GridView1.DataKeys[index]["UserPayeeId"].ToString();
 
-                Debug.WriteLine(selectedUserPayeeId);
-
                 // Set the UserPayeeId into a session and redirect to Payment.aspx
                 Session["PaymentInProgress_payee"] = UserPayeeDb.GetUserPayeeById(selectedUserPayeeId);
 

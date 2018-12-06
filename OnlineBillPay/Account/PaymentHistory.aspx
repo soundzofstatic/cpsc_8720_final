@@ -18,7 +18,7 @@
                         DataKeyNames="PaymentId"
                         DataSourceID="ObjectDataSource1"
                         OnPreRender="GridView1_PreRender"
-                        PageSize="5"
+                        PageSize="15"
                         AllowPaging="true"
                         AllowSorting="true"
                         CssClass="table table-bordered table-condensed table-hover">

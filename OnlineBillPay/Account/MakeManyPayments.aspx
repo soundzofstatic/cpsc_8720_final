@@ -22,13 +22,23 @@
                                     <div class="card-body">
                                         <h3 class="card-title"><%# Eval("Nickname") %></h3>
                                         <div class="form-row mb-2">
-                                            <asp:DropDownList runat="server" ID="ddlFundingSource" CssClass="form-control">
-                                                <asp:ListItem Text="" Value="" Selected="True"></asp:ListItem>
+                                            <asp:DropDownList runat="server" ID="ddlFundingSource" OnDataBinding="ddlFundingSource_DataBinding" CssClass="form-control">
+                                                <asp:ListItem Text="Select Funding Source" Value="" Selected="True"></asp:ListItem>
                                             </asp:DropDownList>
+                                            <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlFundingSource"
+                                                CssClass="text-danger" ErrorMessage="Funding Source must be selected." />
                                         </div>
                                         <div class="form-row">
-                                            <asp:TextBox runat="server" ID="txtAccount" CssClass="form-control" />
+                                            <div class="form-group col-md-8">
+                                                <asp:TextBox runat="server" ID="txtAmount" CssClass="form-control" placeholder="Amount" />
+                                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtAmount"
+                                                    CssClass="text-danger" ErrorMessage="Payment amount is required." />
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <asp:TextBox runat="server" ID="txtCurrency" CssClass="form-control" Value="USD" Text="USD" ReadOnly="true" />
+                                            </div>
                                         </div>
+                                        <asp:HiddenField runat="server" ID="hdnField" Value='<%# Eval("UserPayeeId") %>' />
                                     </div>
                                 </div>
                             </div>
@@ -37,6 +47,11 @@
                             </div>
                         </FooterTemplate>
                     </asp:Repeater>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <asp:Button runat="server" OnClick="SubmitMassPayee_Click" Text="Submit Payments" CssClass="btn btn-default" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
